@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import Runs from './components/run/Runs';
+import Sequence from './components/sequence/Sequence';
+
+const useStyles = makeStyles({
+  App: {
+    margin: '24px',
+  },
+  Nav: {
+    display: 'flex',
+  },
+});
 
 function App() {
+  const classes = useStyles();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className={classes.App}>
+        <nav className={classes.Nav}>
+          <div>
+            <Link to="/sequence">Home</Link>
+          </div>
+        </nav>
+        <Switch>
+          <Route exact path="/" component={Sequence} />
+          <Route path="/sequence" component={Sequence} />
+          <Route path="/runs/:sequenceId" component={Runs} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
